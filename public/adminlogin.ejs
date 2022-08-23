@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initialscale=1">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <title>Login page </title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="Login">
+        <img src="avatar.jpg" alt="Avatar" class="avatar">
+        <h1> Admin Login</h1>
+        <form>
+            <p>Email:
+            <p>
+                <input type="text" name="email" placeholder="Enter username">
+            <p>Password</p>
+            <input type="Password" name="pw" placeholder="Enter Password">
+            <input type="submit" name="" value="Login">
+            <a href="#">Lost your password?</a><br>
+            <a href="/register">Dont have an account?</a>
+        </form>
+    </div>
+    <script>
+        // async function register(){
+        const form = document.querySelector('form');
+        const error = document.querySelector('.error');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('pressed')
+
+
+            const email = form.email.value;
+
+            const pw = form.pw.value;
+
+
+
+          if(email=='admin@gmail.com' && pw=='12345678'){
+
+            location.assign("/flight");
+          }
+
+            
+
+        })
+    </script>
+
+</body>
+
+
+</html>

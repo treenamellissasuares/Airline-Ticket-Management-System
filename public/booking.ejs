@@ -1,0 +1,77 @@
+<%- include('./sidebar') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <title>Bookings</title>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <div style="margin-left: 450px;">
+        <h4>All Bookings</h4>
+    <% for( var i=0;i<flight.length;i++){%>
+    <div class="card" style="width: 800px; margin-top: 20px;">
+        <div class="card-body" style="background-color:antiquewhite">
+            <h5 class="card-title">Flight name: <%-flight[i].airlinename%>
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">From Location :<%-flight[i].fromloc%>
+            </h6>
+            <h6 class="card-subtitle mb-2 text-muted">
+                To Location:<%-flight[i].toloc%>
+            </h6>
+            
+    
+            <button type="submit" class="btn btn-secondary" style="float: right;" onclick="viewticket('<%-flight[i].fid%>','<%-flight[i].depdate%>')" 
+                >
+                View </a></button>
+    
+        </div>
+    </div>
+    <%}%>
+    
+    
+    
+    
+    
+    
+        </div>
+       
+
+<script>
+    async function viewticket(i,j){
+        console.log(j);
+        const date= new Date(j);
+        location.assign(`/book/ticket?fid=${i}&date=${j}`)
+
+    }
+</script>
+    
+</body>
+</html>

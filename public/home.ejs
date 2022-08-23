@@ -1,0 +1,225 @@
+<%- include('./sidebaradmin') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <title>Home</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div style="margin-left: 400px; margin-top: 40px;">
+        <button type="submit" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter"
+            onclick="add()">Add</button>
+
+
+        <% for( var i=0;i<flight.length;i++){%>
+            <div class="card" style="width: 800px; margin-top: 20px;">
+                <div class="card-body" style="background-color:antiquewhite">
+                    <h5 class="card-title">Flight name: <%-flight[i].airlinename%>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">From Location :<%-flight[i].fromloc%>
+                    </h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        To Location:<%-flight[i].toloc%>
+                    </h6>
+                   
+                    <button type="submit" class="btn btn-danger" style="float: right; margin-left: 30px;"
+                        onclick="schedule('<%-flight[i].fid%>')" data-toggle="modal" data-target="#exampleModalCenter2">Schedule</button>
+                    <button type="submit" class="btn btn-secondary" style="float: right;" 
+                        onclick="viewcontrol('<%-flight[i].fid%>')">View</button>
+                    
+    
+                </div>
+            </div>
+    
+            <%}%>
+    
+    
+    
+    
+    </div>
+    
+    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 100px; " role="document">
+    
+            <div class="modal-content" style="width: 130%;">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add Flights</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <div class="">
+                          Airline Name: <input type="text" name="aname">  
+                        </div>
+                    </div>
+                    <div class="md-form mb-5">
+                        <div class="">
+                            From location: <input type="text" name="fromloc">
+                        </div>
+                    </div>
+
+                        <div class="md-form mb-5">
+                            <div class="">
+                                 To Location: <input type="text" name="toloc">
+                            </div>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <div class="">
+                                Total Seat: <input type="Number" name="seat">
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    
+    
+                    <div class="md-form mb-5">
+                        <div class="">
+                           <button type="submit" class="btn btn-primary " style="float: right; margin-right: 40px;" onclick="submitair()">Submit</button>
+                        </div>
+    
+                    </div>
+                    
+                </div>
+            </form>
+            </div>
+    
+        </div>
+    </div>
+    
+
+        <div class="modal fade " id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" style="margin-top: 100px; " role="document">
+        
+                <div class="modal-content" style="width: 130%;">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Schedule Flights</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="schedule">
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">
+                                <div class="">
+                                    Departure Time <input type="datetime-local" name="depdate">
+                                </div>
+                            </div>
+                            <div class="md-form mb-5">
+                                <div class="">
+                                    Arrival Time<input type="datetime-local" name="arrdate">
+                                </div>
+                            </div>
+        
+                            
+        
+        
+        
+                        <div class="md-form mb-5">
+                            <div class="">
+                                <button type="submit" class="btn btn-primary " style="float: right; margin-right: 40px; margin-bottom: 10px;"
+                                    onclick="scheduleair()">Submit</button>
+                            </div>
+        
+                        </div>
+        
+                </div>
+                </form>
+            </div>
+        
+        </div>
+        </div>
+   
+<script>
+    function viewcontrol(i){
+        console.log(i);
+        location.assign(`/flight/fetch?fid=${i}`)
+    }
+
+    function schedule(i){
+        console.log(i);
+        localStorage.setItem("schedule",i);
+    }
+
+
+   async function submitair(){
+       const form=document.querySelector('form');
+       const aname=form.aname.value;
+       const fromloc=form.fromloc.value;
+       const toloc=form.toloc.value;
+       const totalseat=form.seat.value;
+
+
+
+
+      const res = await fetch("/flight/create", {
+           method: 'POST',
+           body: JSON.stringify({ aname:aname,fromloc:fromloc,toloc:toloc,totalseat:totalseat }),
+           headers: { 'Content-Type': 'application/json' }
+       })
+       if (res.status == 200) {
+           location.reload();
+       }
+   }
+
+   async function  scheduleair(){
+       const fid=localStorage.getItem("schedule");
+
+       console.log("fid",fid)
+
+       const form=document.querySelector('#schedule');
+       const depdate=form.depdate.value;
+       const arrdate=form.arrdate.value;
+
+       console.log(depdate,arrdate)
+
+       const res = await fetch("/flight/schedule", {
+           method: 'POST',
+           body: JSON.stringify({ fid:fid,depdate:depdate,arrdate:arrdate }),
+           headers: { 'Content-Type': 'application/json' }
+       })
+       if (res.status == 200) {
+           location.reload();
+       }
+
+       
+   }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width,initialscale=1">
+    <title>Registration </title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="Login" style="height:800px">
+        <img src="avatar.jpg" alt="Avatar" class="avatar">
+       
+        <h1>Registration</h1>
+        <form  enctype="multipart/form-data">
+            <p>First Name</p>    
+            <input type="text" name="fname" placeholder="Enter First Name">
+            <p>Last Name</p>
+             <input type="text" name="lname" placeholder="Enter Last Name">
+            <p>Email</p>
+            <input type="text" name="email" placeholder="Enter Email">
+            <p>Date of Birth</p>
+            <input type="date" name="dob">
+            <p>Contact number</p>
+            <input type="text" name="contact" placeholder="Enter Contact number">
+            <p>Password</p>
+            <input type="password" name="pw" placeholder="Enter password">
+            <p>Confirm Password</p>
+            <input type="password" name="cpw" placeholder="Enter password">
+
+            <div id="error" style="color:red"></div>
+            <input type="submit"  style="background-color:red;">
+            <a href="/login">Already have an account?</a><br>
+        </form>
+
+       
+    </div>
+
+<script>
+    
+         const form = document.querySelector('form');
+            const error = document.querySelector('.error');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                console.log('pressed')
+        
+       
+        const email=form.email.value;
+       
+        const pw=form.pw.value;
+        const fname=form.fname.value;
+        const lname = form.lname.value;
+        const contact = form.contact.value;
+        const dob=form.dob.value
+        
+
+        
+
+
+        console.log("form",form);
+      const res=  await fetch("/register",{
+            method: 'POST',
+            body: JSON.stringify({fname:fname,lname:lname,email:email,dob:dob,contact:contact,password:pw}),
+            headers: { 'Content-Type': 'application/json' }
+        })
+    if(res.status==201){
+        location.assign("/login");
+    }
+        
+    })
+
+</script>
+</body>
+
+    
+</html>

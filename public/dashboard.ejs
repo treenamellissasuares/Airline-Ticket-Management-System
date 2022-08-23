@@ -1,0 +1,266 @@
+<%- include('./sidebar') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    
+    <title>Dashboard</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+        <style>
+            .inputstyle{
+                margin-top: 30px;
+            }
+        </style>
+</head>
+<body>
+
+<div style="margin-left: 450px;">
+
+
+    <form>
+        
+        <div class="row" style="margin-top: 50px;">
+            <h5>Search By Location</h5>
+            <div class="col"  style="margin-right: -250px;">
+            <input type="text" class="form-control" style="width:300px; " name="fromloc" id="" value="" placeholder="From Location">
+
+           
+              
+            </div>
+            <div class="col">
+                <input type="text" name="toloc"  style="width:300px" id="" value="" placeholder="To Location" class="form-control">
+            </div>
+        </div>
+        
+        <div class="row" style="margin-top: 50px;">
+            <h5>Search By Date</h5>
+            <div class="col" style="margin-right: -250px;">
+                <input type="date" name="depdate"  class="form-control" style="width:300px;" id="" value="">
+        
+        
+        
+            </div>
+            <div class="col">
+            <input type="date" name="arrdate"  class="form-control" style="width:300px;" id="" value="">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="float: right; margin-right: 300px; margin-top: 20px; margin-bottom: 20px;">Search</button>
+    </form>
+    <%/*%>
+    <form >
+    <input type="text" name="fromloc" id="" value="" placeholder="Enter From Location">
+    <label for="">To Loc: </label><input type="text" name="toloc" id="" value="" placeholder="Enter To Location">
+    
+    <div class="inputstyle">
+    <label for="">From:</label><input type="date" name="depdate" id="" value="">
+    <label for="">To:</label><input type="date" name="arrdate" id="" value="">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <%*/%>
+    <% for( var i=0;i<flight.length;i++){%>
+<div class="card" style="width: 800px; margin-top: 20px;">
+    <div class="card-body" style="background-color:antiquewhite">
+        <h5 class="card-title">Flight name: <%-flight[i].airlinename%></h5>
+        <h6 class="card-subtitle mb-2 text-muted">From Location :<%-flight[i].fromloc%></h6>
+        <h6 class="card-subtitle mb-2 text-muted">
+            To Location:<%-flight[i].toloc%>
+        </h6>
+        <h6 class="card-subtitle mb-2 text-muted">
+            Departure Time: <%-flight[i].depdate.toLocaleString()%> 
+        </h6>
+        <h6 class="card-subtitle mb-2 text-muted">
+         Arrival Time:   <%-flight[i].arrdate.toLocaleString()%>
+                
+        </h6>
+
+        <button type="submit" class="btn btn-secondary" style="float: right;" data-toggle="modal" data-target="#exampleModalCenter" onclick="flightcontrol('<%-flight[i].fid%>','<%-flight[i].depdate%>')">Book</button>
+        
+    </div>
+</div>
+
+
+<%}%>
+
+
+
+
+</div>
+
+
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 100px; " role="document">
+       
+            <div class="modal-content"  style="width: 130%;">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Book Tickets</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                    <div class="">
+                        <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;" onclick="addmember()">Add Members</button>
+                    </div>
+
+                    </div>
+
+                <form id="members">
+                    
+
+                    
+                </form >
+
+                <div class="md-form mb-5">
+                    <div class="">
+                        <button type="submit" class="btn btn-primary" style="margin-bottom: 10px; float: right;"
+                            onclick="submit()">Submit</button>
+                    </div>
+                
+                </div>
+                <input type="hidden" value="1" id="total_chq">
+            </div>
+            </div>
+        
+    </div>
+</div>
+
+
+<div class="modal fade " id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 100px; " role="document">
+
+        <div class="modal-content" style="width: 130%;">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Book Tickets</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <div class="">
+                        <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;"
+                            onclick="addmember()">Add Members</button>
+                    </div>
+
+                </div>
+
+                <form id="members">
+
+
+
+                </form>
+
+                <div class="md-form mb-5">
+                    <div class="">
+                        <button type="submit" class="btn btn-primary" style="margin-bottom: 10px; float: right;"
+                            onclick="submit()">Submit</button>
+                    </div>
+                    <p id="success"></p>
+
+                </div>
+                <input type="hidden" value="1" id="total_chq">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+   async function flightcontrol(i,j){
+        console.log(i);
+        localStorage.setItem("flightcontrol",i);
+         localStorage.setItem("flightdate", j);
+    }
+    var i=0;
+    function addmember() {
+       
+       
+            var new_input =`<div style="margin-bottom:30px">
+             Name:<input type='text' id='name'  style='margin-left:50px; margin-bottom:20px; margin-right:20px'>`+ 
+            ` Age : <input type="text" id='age'> <br/> 
+            </div>
+            `;
+            
+             $('#members').append(new_input);
+             $('#total_chq').val(i)
+        }
+
+    async function submit(){
+          const flight = localStorage.getItem("flightcontrol");
+          const fdate= localStorage.getItem("flightdate");
+        const form=document.querySelectorAll('#name');
+        const form2 = document.querySelectorAll('#age');
+         var arr = [];
+        for (var i = 0; i < form.length; i++) {
+            let m={};
+
+            m.name=form[i].value;
+            m.age=form2[i].value;
+
+            console.log("m",m);
+            arr.push(m)
+         }
+         console.log(arr);
+        console.log("form",form)
+        console.log("form2",form2)
+
+         const res = await fetch("/book/ticket", {
+                    method: 'POST',
+                    body: JSON.stringify({ book:arr ,fid: flight,fdate:fdate}),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                if (res.status == 200) {
+                    // document.getElementById("#success").value="Ticket Booked Successfully"
+                      alert("Ticket Booked Successfully");
+                    window.location.href = "/book/bookings";
+
+                    // alert("Ticket Booked Successfully");
+                }
+                else if (res.status == 200) {
+            // document.getElementById("#success").value="Ticket Booked Successfully"
+            alert("Ticket Full");
+            window.location.href = "/book/bookings";
+
+            // alert("Ticket Booked Successfully");
+        }
+
+            
+    }
+</script>
+</body>
+</html>
